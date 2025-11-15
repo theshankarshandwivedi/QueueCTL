@@ -5,8 +5,8 @@ const Job = require("./job");
 const config = require("../config/config");
 const storage = require("../storage/fileStorage");
 const logger = require("../utils/logger");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 class Worker {
   constructor(id = null) {
@@ -116,13 +116,16 @@ class Worker {
         if (this.currentJob.save_output) {
           let outFile = this.currentJob.output_file;
           if (!outFile) {
-            const outputsDir = path.join(__dirname, '../../data/outputs');
-            if (!fs.existsSync(outputsDir)) fs.mkdirSync(outputsDir, { recursive: true });
+            const outputsDir = path.join(__dirname, "../../data/outputs");
+            if (!fs.existsSync(outputsDir))
+              fs.mkdirSync(outputsDir, { recursive: true });
             outFile = path.join(outputsDir, `${this.currentJob.id}.log`);
           }
 
-          const header = `\n=== ${new Date().toISOString()} | ${result.success ? 'SUCCESS' : 'FAIL'} ===\n`;
-          let body = '';
+          const header = `\n=== ${new Date().toISOString()} | ${
+            result.success ? "SUCCESS" : "FAIL"
+          } ===\n`;
+          let body = "";
           if (result.stdout) body += `STDOUT:\n${result.stdout}\n`;
           if (result.stderr) body += `STDERR:\n${result.stderr}\n`;
           fs.appendFileSync(outFile, header + body);
@@ -151,15 +154,22 @@ class Worker {
                 const first = `${outFile}.1`;
                 fs.renameSync(outFile, first);
                 // create new empty log with rotation header
-                fs.writeFileSync(outFile, `Rotated at ${new Date().toISOString()}\n`);
+                fs.writeFileSync(
+                  outFile,
+                  `Rotated at ${new Date().toISOString()}\n`
+                );
               } catch (e) {
-                logger.warn(`Failed to rotate log for job ${this.currentJob.id}: ${e.message}`);
+                logger.warn(
+                  `Failed to rotate log for job ${this.currentJob.id}: ${e.message}`
+                );
               }
             }
           }
         }
       } catch (e) {
-        logger.warn(`Error saving output for job ${this.currentJob.id}: ${e.message}`);
+        logger.warn(
+          `Error saving output for job ${this.currentJob.id}: ${e.message}`
+        );
       }
 
       if (result.success) {
@@ -200,7 +210,10 @@ class Worker {
   executeJob(job) {
     return new Promise((resolve) => {
       // Determine timeout (ms): per-job or global
-      const timeout = job.job_timeout !== undefined ? job.job_timeout : config.getJobTimeout();
+      const timeout =
+        job.job_timeout !== undefined
+          ? job.job_timeout
+          : config.getJobTimeout();
 
       // Detect platform and use appropriate shell
       const isWindows = process.platform === "win32";
@@ -219,21 +232,42 @@ class Worker {
 
           if (error) {
             // Timeout detection: exec kills child and sets error.killed or signal
-            const isTimeout = error.killed || (error.signal && error.signal !== null);
+            const isTimeout =
+              error.killed || (error.signal && error.signal !== null);
 
             if (isTimeout) {
-              resolve({ success: false, stdout: out, stderr: errOut, error: "Job timed out" });
+              resolve({
+                success: false,
+                stdout: out,
+                stderr: errOut,
+                error: "Job timed out",
+              });
               return;
             }
 
             // Command not found
             if (error.code === "ENOENT") {
-              resolve({ success: false, stdout: out, stderr: errOut, error: "Command not found" });
+              resolve({
+                success: false,
+                stdout: out,
+                stderr: errOut,
+                error: "Command not found",
+              });
             } else {
-              resolve({ success: false, stdout: out, stderr: errOut, error: errOut || error.message });
+              resolve({
+                success: false,
+                stdout: out,
+                stderr: errOut,
+                error: errOut || error.message,
+              });
             }
           } else {
-            resolve({ success: true, stdout: out, stderr: errOut, error: null });
+            resolve({
+              success: true,
+              stdout: out,
+              stderr: errOut,
+              error: null,
+            });
           }
         }
       );

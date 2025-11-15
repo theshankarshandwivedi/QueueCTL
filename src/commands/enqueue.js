@@ -96,7 +96,9 @@ function enqueueCommand(jobString, options = {}) {
     if (options.jobTimeout !== undefined) {
       const val = parseInt(options.jobTimeout);
       if (isNaN(val) || val <= 0) {
-        throw new Error("--job-timeout must be a positive integer representing milliseconds");
+        throw new Error(
+          "--job-timeout must be a positive integer representing milliseconds"
+        );
       }
       jobData.job_timeout = val;
     }
@@ -122,15 +124,26 @@ function enqueueCommand(jobString, options = {}) {
     }
 
     if (options.saveOutput) {
-      const outputDir = options.outputDir || path.join(__dirname, "../../data/outputs");
-      const outDirResolved = path.isAbsolute(outputDir) ? outputDir : path.join(process.cwd(), outputDir);
+      const outputDir =
+        options.outputDir || path.join(__dirname, "../../data/outputs");
+      const outDirResolved = path.isAbsolute(outputDir)
+        ? outputDir
+        : path.join(process.cwd(), outputDir);
       // ensure directory exists
       try {
-        if (!fs.existsSync(outDirResolved)) fs.mkdirSync(outDirResolved, { recursive: true });
+        if (!fs.existsSync(outDirResolved))
+          fs.mkdirSync(outDirResolved, { recursive: true });
       } catch (e) {}
 
       const outputFile = path.join(outDirResolved, `${job.id}.log`);
-      queue.updateJob(job.id, { save_output: true, output_file: outputFile, rotate_size: options.rotateSize ? parseInt(options.rotateSize) : 1000000, rotate_count: options.rotateCount ? parseInt(options.rotateCount) : 1 });
+      queue.updateJob(job.id, {
+        save_output: true,
+        output_file: outputFile,
+        rotate_size: options.rotateSize
+          ? parseInt(options.rotateSize)
+          : 1000000,
+        rotate_count: options.rotateCount ? parseInt(options.rotateCount) : 1,
+      });
     }
 
     console.log(chalk.green("✓"), "Job enqueued successfully!");

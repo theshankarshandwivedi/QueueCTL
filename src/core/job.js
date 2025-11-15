@@ -21,7 +21,9 @@ class Job {
     this.error = data.error || null;
     this.output = data.output || { stdout: null, stderr: null };
     this.job_timeout =
-      data.job_timeout !== undefined ? data.job_timeout : config.getJobTimeout();
+      data.job_timeout !== undefined
+        ? data.job_timeout
+        : config.getJobTimeout();
     this.run_at = data.run_at || null;
     this.priority = data.priority !== undefined ? data.priority : 0;
     this.save_output = data.save_output || false;

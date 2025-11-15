@@ -7,7 +7,7 @@ const statusCommand = require("../src/commands/status");
 const listCommand = require("../src/commands/list");
 const dlqCommand = require("../src/commands/dlq");
 const configCommand = require("../src/commands/config");
-const metricsCommand = require('../src/commands/metrics');
+const metricsCommand = require("../src/commands/metrics");
 const chalk = require("chalk");
 
 program
@@ -25,14 +25,26 @@ program
     "--backoff-base <number>",
     "Override per-job backoff base (exponential)"
   )
-    .option("--job-timeout <ms>", "Override per-job job timeout in milliseconds")
-  .option("--run-at <iso>", "Schedule job to run at ISO timestamp (e.g. 2025-11-15T15:00:00Z)")
+  .option("--job-timeout <ms>", "Override per-job job timeout in milliseconds")
+  .option(
+    "--run-at <iso>",
+    "Schedule job to run at ISO timestamp (e.g. 2025-11-15T15:00:00Z)"
+  )
   .option("--delay <seconds>", "Delay job execution by seconds from now")
   .option("--priority <number>", "Job priority (higher runs first)")
-  .option("--save-output", "Save job stdout/stderr to a file under data/outputs")
-  .option("--output-dir <path>", "Directory to save job outputs (defaults to data/outputs)")
-    .option("--rotate-size <bytes>", "Rotate output file when larger than bytes (default 1_000_000)")
-    .option("--rotate-count <n>", "Number of rotated files to keep (default 1)")
+  .option(
+    "--save-output",
+    "Save job stdout/stderr to a file under data/outputs"
+  )
+  .option(
+    "--output-dir <path>",
+    "Directory to save job outputs (defaults to data/outputs)"
+  )
+  .option(
+    "--rotate-size <bytes>",
+    "Rotate output file when larger than bytes (default 1_000_000)"
+  )
+  .option("--rotate-count <n>", "Number of rotated files to keep (default 1)")
 
   .action((job, options) => {
     try {
@@ -136,30 +148,32 @@ dlq
   });
 
 // Job commands
-const job = program.command('job').description('Job operations');
+const job = program.command("job").description("Job operations");
 
-job.command('show <jobId>')
-  .description('Show job details and outputs')
+job
+  .command("show <jobId>")
+  .description("Show job details and outputs")
   .action((jobId) => {
     try {
-      const jobCmd = require('../src/commands/job');
+      const jobCmd = require("../src/commands/job");
       jobCmd.show(jobId);
     } catch (error) {
-      console.error(chalk.red('Error:'), error.message);
+      console.error(chalk.red("Error:"), error.message);
       process.exit(1);
     }
   });
 
 // job tail
-job.command('tail <jobId>')
-  .description('Tail job output file (use --follow to follow)')
-  .option('-f, --follow', 'Follow the file (like tail -f)')
+job
+  .command("tail <jobId>")
+  .description("Tail job output file (use --follow to follow)")
+  .option("-f, --follow", "Follow the file (like tail -f)")
   .action((jobId, options) => {
     try {
-      const tailCmd = require('../src/commands/job-tail');
+      const tailCmd = require("../src/commands/job-tail");
       tailCmd.tail(jobId, options);
     } catch (error) {
-      console.error(chalk.red('Error:'), error.message);
+      console.error(chalk.red("Error:"), error.message);
       process.exit(1);
     }
   });
@@ -195,19 +209,24 @@ program.parse(process.argv);
 
 // Metrics command (print or serve)
 program
-  .command('metrics')
-  .description('Print basic queue metrics or serve a tiny dashboard')
-  .option('-s, --serve [port]', 'Start HTTP server to serve metrics (default 8080)')
+  .command("metrics")
+  .description("Print basic queue metrics or serve a tiny dashboard")
+  .option(
+    "-s, --serve [port]",
+    "Start HTTP server to serve metrics (default 8080)"
+  )
   .action((options) => {
     try {
       if (options.serve) {
-        const port = parseInt(options.serve === true ? process.env.PORT || 8080 : options.serve);
+        const port = parseInt(
+          options.serve === true ? process.env.PORT || 8080 : options.serve
+        );
         metricsCommand.serve(port);
       } else {
         metricsCommand.printMetrics();
       }
     } catch (error) {
-      console.error(chalk.red('Error:'), error.message);
+      console.error(chalk.red("Error:"), error.message);
       process.exit(1);
     }
   });
