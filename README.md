@@ -16,7 +16,7 @@ Usage
 - Enqueue job (inline JSON):
 
 ```powershell
-queuectl enqueue "{\"id\":\"job1\",\"command\":\"sleep 2\"}"
+queuectl enqueue '{"id":"job1","command":"sleep 2"}'
 ```
 
 - Enqueue from file:
@@ -72,6 +72,7 @@ Run the integration tests:
 ```powershell
 npm test
 ```
+### Drive link working cli demo [[here](https://drive.google.com/file/d/1svH1jat7_ROnWXqG7Aa3PjQTLtc4PMVY/view?usp=sharing)]
 
 Notes & Recommendations
 
