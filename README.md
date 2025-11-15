@@ -22,7 +22,7 @@ queuectl enqueue "{\"id\":\"job1\",\"command\":\"sleep 2\"}"
 - Enqueue from file:
 
 ```powershell
-queuectl enqueue --file .\job.json
+queuectl enqueue <object.json>
 # or
 queuectl enqueue @job.json
 ```
