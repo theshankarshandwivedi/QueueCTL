@@ -1,0 +1,22 @@
+node_modules/
+
+# Runtime data (jobs, workers, outputs) — do not commit
+data/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+npm-debug.log
+npm-debug.log.*
+
+# Environment
+.env
+
+# Coverage and test artifacts
+coverage/
+
+# Temporary
+*.log

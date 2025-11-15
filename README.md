@@ -16,53 +16,53 @@ Usage
 - Enqueue job (inline JSON):
 
 ```powershell
-node .\bin\queuectl.js enqueue "{\"id\":\"job1\",\"command\":\"sleep 2\"}"
+queuectl enqueue "{\"id\":\"job1\",\"command\":\"sleep 2\"}"
 ```
 
 - Enqueue from file:
 
 ```powershell
-node .\bin\queuectl.js enqueue --file .\job.json
+queuectl enqueue --file .\job.json
 # or
-node .\bin\queuectl.js enqueue @job.json
+queuectl enqueue @job.json
 ```
 
 - Start workers:
 
 ```powershell
-node .\bin\queuectl.js worker start --count 3
+queuectl worker start --count 3
 ```
 
 - Stop workers (from another terminal):
 
 ```powershell
-node .\bin\queuectl.js worker stop
+queuectl worker stop
 ```
 
 - Show status:
 
 ```powershell
-node .\bin\queuectl.js status
+queuectl status
 ```
 
 - List jobs:
 
 ```powershell
-node .\bin\queuectl.js list --state pending
+queuectl list --state pending
 ```
 
 - DLQ operations:
 
 ```powershell
-node .\bin\queuectl.js dlq list
-node .\bin\queuectl.js dlq retry <jobId>
+queuectl dlq list
+queuectl dlq retry <jobId>
 ```
 
 - Config:
 
 ```powershell
-node .\bin\queuectl.js config set max-retries 5
-node .\bin\queuectl.js config get
+queuectl config set max-retries 5
+queuectl config get
 ```
 
 Testing
@@ -79,4 +79,3 @@ Notes & Recommendations
 - If worker processes crash while running a job, the system will clean stale locks on startup.
 - The logger is lightweight and controlled via `QUEUECTL_DEBUG=1` for debug output.
 
-License: MIT
