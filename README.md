@@ -16,7 +16,7 @@ Usage
 - Enqueue job (inline JSON):
 
 ```powershell
-queuectl enqueue "{\"id\":\"job1\",\"command\":\"sleep 2\"}"
+queuectl enqueue '{"id":"job1","command":"sleep 2"}'
 ```
 
 - Enqueue from file:
