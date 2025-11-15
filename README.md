@@ -16,13 +16,13 @@ Usage
 - Enqueue job (inline JSON):
 
 ```powershell
-queuectl enqueue '{"id":"job1","command":"sleep 2"}'
+queuectl enqueue "{\"id\":\"job1\",\"command\":\"sleep 2\"}"
 ```
 
 - Enqueue from file:
 
 ```powershell
-queuectl enqueue <object.json>
+queuectl enqueue --file .\job.json
 # or
 queuectl enqueue @job.json
 ```
@@ -78,4 +78,3 @@ Notes & Recommendations
 - For complex job payloads prefer `--file` to avoid shell quoting problems.
 - If worker processes crash while running a job, the system will clean stale locks on startup.
 - The logger is lightweight and controlled via `QUEUECTL_DEBUG=1` for debug output.
-
