@@ -1,0 +1,90 @@
+[
+  {
+    "id": "stat-1",
+    "command": "echo 1",
+    "state": "completed",
+    "attempts": 0,
+    "max_retries": 3,
+    "backoff_base": 2,
+    "job_timeout": 300000,
+    "created_at": "2025-11-15T15:17:55.141Z",
+    "updated_at": "2025-11-15T15:17:55.145Z",
+    "next_retry_at": null,
+    "error": null,
+    "output": {
+      "stdout": null,
+      "stderr": null
+    }
+  },
+  {
+    "id": "stat-2",
+    "command": "echo 2",
+    "state": "completed",
+    "attempts": 0,
+    "max_retries": 3,
+    "backoff_base": 2,
+    "job_timeout": 300000,
+    "created_at": "2025-11-15T15:17:55.143Z",
+    "updated_at": "2025-11-15T15:25:24.186Z",
+    "next_retry_at": null,
+    "error": null,
+    "output": {
+      "stdout": "2",
+      "stderr": null
+    }
+  },
+  {
+    "id": "dlq-test",
+    "command": "echo dlq",
+    "state": "completed",
+    "attempts": 0,
+    "max_retries": 3,
+    "backoff_base": 2,
+    "job_timeout": 300000,
+    "created_at": "2025-11-15T15:17:55.147Z",
+    "updated_at": "2025-11-15T15:25:26.232Z",
+    "next_retry_at": null,
+    "error": null,
+    "output": {
+      "stdout": "dlq",
+      "stderr": null
+    }
+  },
+  {
+    "id": "e42da311-2610-4ac1-9386-fb2a2ba18b9d",
+    "command": "echo hello",
+    "state": "completed",
+    "attempts": 0,
+    "max_retries": 5,
+    "backoff_base": 3,
+    "job_timeout": 300000,
+    "created_at": "2025-11-15T15:24:43.724Z",
+    "updated_at": "2025-11-15T15:25:28.270Z",
+    "next_retry_at": null,
+    "error": null,
+    "output": {
+      "stdout": "hello",
+      "stderr": null
+    },
+    "save_output": true,
+    "output_file": "C:\\Users\\shank\\Desktop\\queuectl\\data\\outputs\\e42da311-2610-4ac1-9386-fb2a2ba18b9d.log",
+    "rotate_size": 10
+  },
+  {
+    "id": "job1",
+    "command": "sleep 2",
+    "state": "failed",
+    "attempts": 2,
+    "max_retries": 5,
+    "backoff_base": 3,
+    "job_timeout": 300000,
+    "created_at": "2025-11-15T15:30:13.071Z",
+    "updated_at": "2025-11-15T15:30:26.665Z",
+    "next_retry_at": "2025-11-15T15:30:35.664Z",
+    "error": "'sleep' is not recognized as an internal or external command,\r\noperable program or batch file.",
+    "output": {
+      "stdout": null,
+      "stderr": "'sleep' is not recognized as an internal or external command,\r\noperable program or batch file."
+    }
+  }
+]

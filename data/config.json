@@ -1,0 +1,5 @@
+{
+  "maxRetries": 5,
+  "backoffBase": 3,
+  "jobTimeout": 300000
+}
